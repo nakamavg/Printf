@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_numbers.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 23:53:29 by dgomez-m          #+#    #+#             */
-/*   Updated: 2023/12/18 12:32:03 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:01:09 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_putnbr(int n)
+int	ft_sputnbr(long n)
 
 {
-	int	len;
-
-	len = 0;
-	if (n == -2147483648)
-		return (ft_putstr("-2147483648"));
 	if (n < 0)
-	{
-		n *= -1;
-		len = ft_putchar('-');
-	}
-	if (n >= 10)
-		len += ft_putnbr(n / 10);
-	len += ft_putchar((n % 10) + '0');
+		return (ft_putchar('-') + ft_uputnbr(-n, DEC));
+	else
+		return (ft_uputnbr(n, DEC));
+}
+
+int	ft_uputnbr(unsigned long num, char *base)
+{
+	size_t	base_len;
+	int		len;
+
+	base_len = 0;
+	while (base[base_len] != '\0')
+		base_len++;
+	len = 0;
+	if (num >= base_len)
+		len += ft_uputnbr(num / base_len, base);
+	len += ft_putchar(base[num % base_len]);
 	return (len);
 }

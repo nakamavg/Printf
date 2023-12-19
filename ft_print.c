@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 21:54:14 by dgomez-m          #+#    #+#             */
-/*   Updated: 2023/12/18 11:50:19 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:01:46 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,33 @@
 
 static int	ft_checks(va_list va, char c)
 {
+	int	count;
+
 	if (c == 'c')
-		return (ft_putchar(va_arg(va, int)));
+		count = ft_putchar(va_arg(va, int));
 	else if (c == 's')
-		return (ft_putstr(va_arg(va, char *)));
+		count = (ft_putstr(va_arg(va, char *)));
 	else if (c == 'd' || c == 'i')
-		return (ft_putnbr(va_arg(va, int)));
+		count = (ft_sputnbr(va_arg(va, int)));
+	else if (c == 'u')
+		count = ft_uputnbr(va_arg(va, unsigned int), DEC);
+	else if (c == 'x')
+		count = ft_uputnbr(va_arg(va, unsigned int), HEXM);
+	else if (c == 'X')
+		count = ft_uputnbr(va_arg(va, unsigned int), HEXU);
+	else if (c == 'p')
+	{
+		count = ft_putstr("0x");
+		count += ft_uputnbr((unsigned long)va_arg(va, void *), HEXM);
+	}
 	else if (c == '%')
-		return (ft_putchar('%'));
-	return (0);
+		count = ft_putchar('%');
+	else
+		count = write(1, &c, 1);
+	return (count);
 }
 
-size_t	ft_printf(const char *s, ...)
+int	ft_printf(const char *s, ...)
 {
 	int		len;
 	va_list	va;

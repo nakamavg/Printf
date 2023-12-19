@@ -3,10 +3,20 @@
 
 int	main(void)
 {
-	size_t lena;
-	size_t lenb;
-	lena = printf("%d", -10);
-	printf(": %zu \n ", lena);
-	lenb = ft_printf("%d", -10);
-	printf(": %zu \n ", lenb);
+	int a;
+	a = 6;
+	int *p = NULL;
+	int lena;
+	int lenb;
+	//lena = printf(" Decimal %d", -10);
+	//printf(": %zu \n ", lena);
+	printf("original printf \n");
+	lena = printf("%p\n", "");
+	printf("->tamaño %d\n", lena);
+	ft_printf("mi printf\n");
+	lenb = ft_printf("%p\n",&p);
+	printf("->tamaño %d\n", lenb);    
+
+	
+
 }

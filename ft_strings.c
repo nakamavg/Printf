@@ -3,35 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strings.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 20:33:22 by dgomez-m          #+#    #+#             */
-/*   Updated: 2023/12/18 12:11:56 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:42:15 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_putchar(char c)
+int	ft_putchar(char c)
 {
-	write(1, &c, 1);
-	return (1);
+	return (write(1, &c, 1));
 }
 
-size_t	ft_strlen(const char *s)
+int	ft_putstr(char *s)
 {
-	size_t	x;
+	int	count;
 
-	x = 0;
-	while (s[x] != '\0')
-		x++;
-	return (x);
-}
-
-size_t	ft_putstr(char *s)
-{
+	count = 0;
 	if (!s)
 		s = "(null)";
-	write(1, s, ft_strlen(s));
-	return (ft_strlen(s));
+	while (*s)
+		count += write(1, s++, 1);
+	return (count);
 }
